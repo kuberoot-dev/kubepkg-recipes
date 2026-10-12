@@ -7,7 +7,7 @@ metadata:
     kubepkg.dev/home: https://github.com/kuberoot-dev/kuberoot
 spec:
   version: 0.1.0
-  build: 2
+  build: 3
   sources:
     observability:
       dir: charts/observability
@@ -32,7 +32,14 @@ spec:
       - name: default
         requires:
           - {package: kuberoot-edge, version: "~0.2"}
-          - {package: victoria-metrics, version: "~1.153"}
+          # Dashboards are Perses here; Grafana would be the heaviest pod
+          # on the node for nothing.
+          - package: victoria-metrics
+            version: "~1.153"
+            components:
+              victoria-metrics:
+                values:
+                  grafana: {enabled: false}
           - {package: victoria-logs, version: "~1.53"}
           - {package: perses-operator, version: "~0.5"}
         components:
