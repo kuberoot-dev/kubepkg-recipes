@@ -7,7 +7,7 @@ metadata:
     kubepkg.dev/home: https://mlflow.org
 spec:
   version: 3.16.0
-  build: 1
+  build: 2
   sources:
     upstream:
       chart:
@@ -18,9 +18,6 @@ spec:
   charts:
     mlflow:
       from: [upstream]
-      # The chart's schema refuses keys it does not know, and so the values
-      # a platform layers under every package; the overlay drops it.
-      overlay: overlay
       values:
         # MLflow 3 answers only the host names it is told, against DNS
         # rebinding: those of its Service inside the cluster. An ingress adds
